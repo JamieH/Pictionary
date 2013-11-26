@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PictionaryClient
@@ -19,14 +12,14 @@ namespace PictionaryClient
             InitializeComponent();
         }
         
-        private Timer buttonTimer = new Timer() { Enabled = true, Interval = 1000 };
-        private bool tickSet;
+        private Timer buttonTimer = new Timer { Enabled = true, Interval = 1000 };
+        private bool _tickSet;
         private void Menu_AutoDiscoverButton_Click(object sender, EventArgs e)
         {
-            if (!tickSet)
+            if (!_tickSet)
             {
                 buttonTimer.Tick += buttonTimer_Tick;
-                tickSet = true;
+                _tickSet = true;
             }
 
             buttonTimer.Start();
@@ -39,7 +32,7 @@ namespace PictionaryClient
         void buttonTimer_Tick(object sender, EventArgs e)
         {
             _timerCount--;
-            Menu_AutoDiscoverButton.Text = @"Attempting Discovery (" + _timerCount + ")";
+            Menu_AutoDiscoverButton.Text = String.Format("Attempting Discovery ({0})", _timerCount);
 
             if (Program.AutoDiscoveryIP != null)
             {
@@ -64,7 +57,7 @@ namespace PictionaryClient
 
             if (Program.didError)
             {
-                MessageBox.Show("Server declined connection");
+                MessageBox.Show(@"Server declined connection");
             }
             else
             {

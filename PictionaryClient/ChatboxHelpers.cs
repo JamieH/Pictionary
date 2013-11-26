@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 //Borrowed from the Lidgren Samples
-namespace SamplesCommon
+namespace PictionaryClient
 {
 	public static class ChatboxHelpers
 	{
 		[DllImport("user32.dll", CharSet = CharSet.Auto)]
 		public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
-		public const int WM_VSCROLL = 277; // Vertical scroll
-		public const int SB_BOTTOM = 7; // Scroll to bottom 
+		public const int WmVscroll = 277; // Vertical scroll
+		public const int SbBottom = 7; // Scroll to bottom 
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct PeekMsg
@@ -45,8 +45,9 @@ namespace SamplesCommon
 				box.AppendText(line + Environment.NewLine);
 				ScrollRichTextBox(box);
 			}
-			catch
+			catch (Exception ex)
 			{
+                Console.WriteLine(@"AppendText Error: {0}", ex);
 			}
 		}
 
@@ -54,7 +55,7 @@ namespace SamplesCommon
 		{
 			if (box == null || box.IsDisposed || box.Disposing)
 				return;
-			SendMessage(box.Handle, WM_VSCROLL, (IntPtr)SB_BOTTOM, IntPtr.Zero);
+			SendMessage(box.Handle, WmVscroll, (IntPtr)SbBottom, IntPtr.Zero);
 		}
 	}
 }

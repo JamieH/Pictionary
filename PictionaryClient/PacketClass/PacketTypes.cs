@@ -1,4 +1,5 @@
-﻿namespace PictionaryShared
+﻿// ReSharper disable once CheckNamespace
+namespace PictionaryShared
 {
     static class PacketTypes
     {

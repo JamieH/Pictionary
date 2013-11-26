@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PictionaryClient.PacketClass;
 using PictionaryShared;
@@ -15,8 +10,8 @@ namespace PictionaryClient
     public partial class Lobby : Form
     {
         private static Image lobbyPictureImage = new Bitmap(900, 600);
-        public static Timer timer = new Timer() {Interval = 1000, Enabled = false};
-        private static int countDown = 10;
+        public static Timer timer = new Timer {Interval = 1000, Enabled = false};
+        private static int _countDown = 10;
         public Lobby()
         {
             InitializeComponent();
@@ -25,12 +20,12 @@ namespace PictionaryClient
 
         void timer_Tick(object sender, EventArgs e)
         {
-            Network.SendText(PacketTypes.Headers.ChatSend, "Game staring in: " + countDown);
-            countDown--;
-            if (countDown == 0)
+            Network.SendText(PacketTypes.Headers.ChatSend, "Game staring in: " + _countDown);
+            _countDown--;
+            if (_countDown == 0)
             {
                 Network.SendText(PacketTypes.Headers.ChatSend, "Game is now starting!");
-                countDown = 10;
+                _countDown = 10;
                 timer.Stop();
 
             }
@@ -120,7 +115,7 @@ namespace PictionaryClient
             }
             else
             {
-                countDown = 5;
+                _countDown = 5;
                 timer.Enabled = true;
                 timer.Start();
             }
