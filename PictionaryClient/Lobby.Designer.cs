@@ -55,6 +55,7 @@
             this.Lobby_HostStart.Text = "Start";
             this.Lobby_HostStart.UseVisualStyleBackColor = true;
             this.Lobby_HostStart.Visible = false;
+            this.Lobby_HostStart.Click += new System.EventHandler(this.Lobby_HostStart_Click);
             // 
             // Lobby_ReadyupButton
             // 

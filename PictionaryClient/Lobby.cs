@@ -15,9 +15,25 @@ namespace PictionaryClient
     public partial class Lobby : Form
     {
         private static Image lobbyPictureImage = new Bitmap(900, 600);
+        public static Timer timer = new Timer() {Interval = 1000, Enabled = false};
+        private static int countDown = 10;
         public Lobby()
         {
             InitializeComponent();
+            timer.Tick += timer_Tick;
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            Network.SendText(PacketTypes.Headers.ChatSend, "Game staring in: " + countDown);
+            countDown--;
+            if (countDown == 0)
+            {
+                Network.SendText(PacketTypes.Headers.ChatSend, "Game is now starting!");
+                countDown = 10;
+                timer.Stop();
+
+            }
         }
 
         public void UpdateDisplay()
@@ -83,6 +99,30 @@ namespace PictionaryClient
                     Network.SendText(PacketTypes.Headers.ChatSend, Lobby_OutgoingMessageBox.Text);
                     Lobby_OutgoingMessageBox.Text = "";
                 }
+            }
+        }
+
+        private void Lobby_HostStart_Click(object sender, EventArgs e)
+        {
+            bool notReady = false;
+            foreach (var p in Program.PlayerStore)
+            {
+                if (!p.Value.GetReadyStatus())
+                {
+                    notReady = true;
+                }
+            }
+
+            if (notReady)
+            {
+                timer.Enabled = true;
+                timer.Start();
+            }
+            else
+            {
+                countDown = 5;
+                timer.Enabled = true;
+                timer.Start();
             }
         }
     }

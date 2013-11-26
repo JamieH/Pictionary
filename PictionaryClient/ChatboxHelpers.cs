@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
+//Borrowed from the Lidgren Samples
 namespace SamplesCommon
 {
 	public static class ChatboxHelpers
