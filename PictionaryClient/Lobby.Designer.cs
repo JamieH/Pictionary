@@ -72,6 +72,7 @@
             this.Lobby_OutgoingMessageBox.Name = "Lobby_OutgoingMessageBox";
             this.Lobby_OutgoingMessageBox.Size = new System.Drawing.Size(563, 20);
             this.Lobby_OutgoingMessageBox.TabIndex = 3;
+            this.Lobby_OutgoingMessageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Lobby_OutgoingMessageBox_KeyDown);
             // 
             // Lobby_SendMessageButton
             // 
@@ -81,6 +82,7 @@
             this.Lobby_SendMessageButton.TabIndex = 4;
             this.Lobby_SendMessageButton.Text = "Send";
             this.Lobby_SendMessageButton.UseVisualStyleBackColor = true;
+            this.Lobby_SendMessageButton.Click += new System.EventHandler(this.Lobby_SendMessageButton_Click);
             // 
             // Lobby_Chatbox
             // 
@@ -125,9 +127,9 @@
         private System.Windows.Forms.Button Lobby_ReadyupButton;
         private System.Windows.Forms.TextBox Lobby_OutgoingMessageBox;
         private System.Windows.Forms.Button Lobby_SendMessageButton;
-        private System.Windows.Forms.RichTextBox Lobby_Chatbox;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.PictureBox Lobby_PlayersPicture;
         public System.Windows.Forms.Button Lobby_HostStart;
+        public System.Windows.Forms.RichTextBox Lobby_Chatbox;
     }
 }

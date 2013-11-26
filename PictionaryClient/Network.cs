@@ -4,6 +4,7 @@ using PictionaryShared;
 using System;
 using System.Net;
 using System.Threading;
+using SamplesCommon;
 
 namespace PictionaryClient
 {
@@ -86,6 +87,11 @@ namespace PictionaryClient
                                 Console.WriteLine("We are apparently the host");
                                 Program.areWeHost = true;
                                 Menu.lobby.Lobby_HostStart.Visible = true;
+                                break;
+                            case PacketTypes.Headers.ChatReceive:
+                                var chatUser = inc.ReadString();
+                                var chatMsg = inc.ReadString();
+                                ChatboxHelpers.AppendText(Menu.lobby.Lobby_Chatbox, String.Format("{0} : {1}", chatUser, chatMsg));
                                 break;
                             default:
                                 Console.WriteLine("Invalid Packet Header: {0}", pheader);

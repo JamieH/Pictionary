@@ -62,5 +62,28 @@ namespace PictionaryClient
             Network.SendText(PacketTypes.Headers.ReadyUpdate, Program.PlayerStore[0].GetReadyStatus().ToString());
             UpdateDisplay();
         }
+
+        private void Lobby_SendMessageButton_Click(object sender, EventArgs e)
+        {
+
+                if (Lobby_OutgoingMessageBox.Text.Length <= 2)
+                {
+                    Network.SendText(PacketTypes.Headers.ChatSend, Lobby_OutgoingMessageBox.Text);
+                    Lobby_OutgoingMessageBox.Text = "";
+                }
+            
+        }
+
+        private void Lobby_OutgoingMessageBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (Lobby_OutgoingMessageBox.Text.Length >= 2)
+                {
+                    Network.SendText(PacketTypes.Headers.ChatSend, Lobby_OutgoingMessageBox.Text);
+                    Lobby_OutgoingMessageBox.Text = "";
+                }
+            }
+        }
     }
 }

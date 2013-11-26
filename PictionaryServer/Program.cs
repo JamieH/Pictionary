@@ -150,7 +150,12 @@ namespace PictionaryServer
                     Players[inc.SenderConnection.RemoteUniqueIdentifier].Connection = inc.SenderConnection;
                     break;
                 case PacketTypes.Headers.ChatSend:
-
+                    NetOutgoingMessage chatMessageRelay = server.CreateMessage();
+                    var chatM = inc.ReadString();
+                    chatMessageRelay.Write((byte) PacketTypes.Headers.ChatReceive);
+                    chatMessageRelay.Write(Players[inc.SenderConnection.RemoteUniqueIdentifier].Name);
+                    chatMessageRelay.Write(chatM);
+                    server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
                     break;
             }
         }
