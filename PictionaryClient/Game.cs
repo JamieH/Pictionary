@@ -39,7 +39,7 @@ namespace PictionaryClient
                     int y = 10; //y coord
 
 
-                    g.DrawRectangle(new Pen(penColor), e.X, e.Y, 1, 1);
+                    g.FillRectangle(new SolidBrush(penColor), e.X, e.Y, pixelSize.Value, pixelSize.Value);
                     counter++;
 
                     Game_GamePicturebox.Image = GamePictureImage;
