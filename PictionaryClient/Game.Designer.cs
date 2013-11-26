@@ -35,17 +35,40 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.Color_Black = new System.Windows.Forms.Button();
+            this.Color_White = new System.Windows.Forms.Button();
+            this.Color_Darkgray = new System.Windows.Forms.Button();
+            this.Color_Gray = new System.Windows.Forms.Button();
+            this.Color_Pink = new System.Windows.Forms.Button();
+            this.Color_Orange = new System.Windows.Forms.Button();
+            this.Color_Brown = new System.Windows.Forms.Button();
+            this.Color_Red = new System.Windows.Forms.Button();
+            this.Color_LightGreen = new System.Windows.Forms.Button();
+            this.Color_Green = new System.Windows.Forms.Button();
+            this.Color_Peach = new System.Windows.Forms.Button();
+            this.Color_Yellow = new System.Windows.Forms.Button();
+            this.Color_LightBlue = new System.Windows.Forms.Button();
+            this.Color_Blue = new System.Windows.Forms.Button();
+            this.Color_lightAqua = new System.Windows.Forms.Button();
+            this.Color_Aqua = new System.Windows.Forms.Button();
+            this.Color_Purple = new System.Windows.Forms.Button();
+            this.Color_Uhm = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.Game_GamePicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Game_HintsPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // Game_GamePicturebox
             // 
             this.Game_GamePicturebox.Location = new System.Drawing.Point(78, 37);
             this.Game_GamePicturebox.Name = "Game_GamePicturebox";
-            this.Game_GamePicturebox.Size = new System.Drawing.Size(633, 443);
+            this.Game_GamePicturebox.Size = new System.Drawing.Size(817, 443);
             this.Game_GamePicturebox.TabIndex = 0;
             this.Game_GamePicturebox.TabStop = false;
+            this.Game_GamePicturebox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Game_GamePicturebox_MouseDown);
+            this.Game_GamePicturebox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Game_GamePicturebox_MouseMove);
+            this.Game_GamePicturebox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Game_GamePicturebox_MouseUp);
             // 
             // Game_WhoIsDrawing
             // 
@@ -93,17 +116,261 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(17, 486);
+            this.richTextBox1.Location = new System.Drawing.Point(17, 538);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(694, 111);
+            this.richTextBox1.Size = new System.Drawing.Size(694, 59);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
+            // 
+            // Color_Black
+            // 
+            this.Color_Black.BackColor = System.Drawing.Color.Black;
+            this.Color_Black.FlatAppearance.BorderSize = 0;
+            this.Color_Black.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Black.Location = new System.Drawing.Point(17, 486);
+            this.Color_Black.Name = "Color_Black";
+            this.Color_Black.Size = new System.Drawing.Size(18, 18);
+            this.Color_Black.TabIndex = 7;
+            this.Color_Black.UseVisualStyleBackColor = false;
+            this.Color_Black.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_White
+            // 
+            this.Color_White.BackColor = System.Drawing.Color.White;
+            this.Color_White.FlatAppearance.BorderSize = 0;
+            this.Color_White.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_White.Location = new System.Drawing.Point(17, 510);
+            this.Color_White.Name = "Color_White";
+            this.Color_White.Size = new System.Drawing.Size(18, 18);
+            this.Color_White.TabIndex = 8;
+            this.Color_White.UseVisualStyleBackColor = false;
+            this.Color_White.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Darkgray
+            // 
+            this.Color_Darkgray.BackColor = System.Drawing.Color.Gray;
+            this.Color_Darkgray.FlatAppearance.BorderSize = 0;
+            this.Color_Darkgray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Darkgray.Location = new System.Drawing.Point(41, 486);
+            this.Color_Darkgray.Name = "Color_Darkgray";
+            this.Color_Darkgray.Size = new System.Drawing.Size(18, 18);
+            this.Color_Darkgray.TabIndex = 9;
+            this.Color_Darkgray.UseVisualStyleBackColor = false;
+            this.Color_Darkgray.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Gray
+            // 
+            this.Color_Gray.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Color_Gray.FlatAppearance.BorderSize = 0;
+            this.Color_Gray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Gray.Location = new System.Drawing.Point(41, 510);
+            this.Color_Gray.Name = "Color_Gray";
+            this.Color_Gray.Size = new System.Drawing.Size(18, 18);
+            this.Color_Gray.TabIndex = 10;
+            this.Color_Gray.UseVisualStyleBackColor = false;
+            this.Color_Gray.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Pink
+            // 
+            this.Color_Pink.BackColor = System.Drawing.Color.MistyRose;
+            this.Color_Pink.FlatAppearance.BorderSize = 0;
+            this.Color_Pink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Pink.Location = new System.Drawing.Point(89, 510);
+            this.Color_Pink.Name = "Color_Pink";
+            this.Color_Pink.Size = new System.Drawing.Size(18, 18);
+            this.Color_Pink.TabIndex = 14;
+            this.Color_Pink.UseVisualStyleBackColor = false;
+            this.Color_Pink.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Orange
+            // 
+            this.Color_Orange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.Color_Orange.FlatAppearance.BorderSize = 0;
+            this.Color_Orange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Orange.Location = new System.Drawing.Point(89, 486);
+            this.Color_Orange.Name = "Color_Orange";
+            this.Color_Orange.Size = new System.Drawing.Size(18, 18);
+            this.Color_Orange.TabIndex = 13;
+            this.Color_Orange.UseVisualStyleBackColor = false;
+            this.Color_Orange.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Brown
+            // 
+            this.Color_Brown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Color_Brown.FlatAppearance.BorderSize = 0;
+            this.Color_Brown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Brown.Location = new System.Drawing.Point(65, 510);
+            this.Color_Brown.Name = "Color_Brown";
+            this.Color_Brown.Size = new System.Drawing.Size(18, 18);
+            this.Color_Brown.TabIndex = 12;
+            this.Color_Brown.UseVisualStyleBackColor = false;
+            this.Color_Brown.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Red
+            // 
+            this.Color_Red.BackColor = System.Drawing.Color.Red;
+            this.Color_Red.FlatAppearance.BorderSize = 0;
+            this.Color_Red.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Red.Location = new System.Drawing.Point(65, 486);
+            this.Color_Red.Name = "Color_Red";
+            this.Color_Red.Size = new System.Drawing.Size(18, 18);
+            this.Color_Red.TabIndex = 11;
+            this.Color_Red.UseVisualStyleBackColor = false;
+            this.Color_Red.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_LightGreen
+            // 
+            this.Color_LightGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.Color_LightGreen.FlatAppearance.BorderSize = 0;
+            this.Color_LightGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_LightGreen.Location = new System.Drawing.Point(137, 510);
+            this.Color_LightGreen.Name = "Color_LightGreen";
+            this.Color_LightGreen.Size = new System.Drawing.Size(18, 18);
+            this.Color_LightGreen.TabIndex = 18;
+            this.Color_LightGreen.UseVisualStyleBackColor = false;
+            this.Color_LightGreen.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Green
+            // 
+            this.Color_Green.BackColor = System.Drawing.Color.Lime;
+            this.Color_Green.FlatAppearance.BorderSize = 0;
+            this.Color_Green.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Green.Location = new System.Drawing.Point(137, 486);
+            this.Color_Green.Name = "Color_Green";
+            this.Color_Green.Size = new System.Drawing.Size(18, 18);
+            this.Color_Green.TabIndex = 17;
+            this.Color_Green.UseVisualStyleBackColor = false;
+            this.Color_Green.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Peach
+            // 
+            this.Color_Peach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.Color_Peach.FlatAppearance.BorderSize = 0;
+            this.Color_Peach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Peach.Location = new System.Drawing.Point(113, 510);
+            this.Color_Peach.Name = "Color_Peach";
+            this.Color_Peach.Size = new System.Drawing.Size(18, 18);
+            this.Color_Peach.TabIndex = 16;
+            this.Color_Peach.UseVisualStyleBackColor = false;
+            this.Color_Peach.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Yellow
+            // 
+            this.Color_Yellow.BackColor = System.Drawing.Color.Yellow;
+            this.Color_Yellow.FlatAppearance.BorderSize = 0;
+            this.Color_Yellow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Yellow.Location = new System.Drawing.Point(113, 486);
+            this.Color_Yellow.Name = "Color_Yellow";
+            this.Color_Yellow.Size = new System.Drawing.Size(18, 18);
+            this.Color_Yellow.TabIndex = 15;
+            this.Color_Yellow.UseVisualStyleBackColor = false;
+            this.Color_Yellow.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_LightBlue
+            // 
+            this.Color_LightBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Color_LightBlue.FlatAppearance.BorderSize = 0;
+            this.Color_LightBlue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_LightBlue.Location = new System.Drawing.Point(185, 510);
+            this.Color_LightBlue.Name = "Color_LightBlue";
+            this.Color_LightBlue.Size = new System.Drawing.Size(18, 18);
+            this.Color_LightBlue.TabIndex = 22;
+            this.Color_LightBlue.UseVisualStyleBackColor = false;
+            this.Color_LightBlue.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Blue
+            // 
+            this.Color_Blue.BackColor = System.Drawing.Color.Blue;
+            this.Color_Blue.FlatAppearance.BorderSize = 0;
+            this.Color_Blue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Blue.Location = new System.Drawing.Point(185, 486);
+            this.Color_Blue.Name = "Color_Blue";
+            this.Color_Blue.Size = new System.Drawing.Size(18, 18);
+            this.Color_Blue.TabIndex = 21;
+            this.Color_Blue.UseVisualStyleBackColor = false;
+            this.Color_Blue.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_lightAqua
+            // 
+            this.Color_lightAqua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.Color_lightAqua.FlatAppearance.BorderSize = 0;
+            this.Color_lightAqua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_lightAqua.Location = new System.Drawing.Point(161, 510);
+            this.Color_lightAqua.Name = "Color_lightAqua";
+            this.Color_lightAqua.Size = new System.Drawing.Size(18, 18);
+            this.Color_lightAqua.TabIndex = 20;
+            this.Color_lightAqua.UseVisualStyleBackColor = false;
+            this.Color_lightAqua.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Aqua
+            // 
+            this.Color_Aqua.BackColor = System.Drawing.Color.Aqua;
+            this.Color_Aqua.FlatAppearance.BorderSize = 0;
+            this.Color_Aqua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Aqua.Location = new System.Drawing.Point(161, 486);
+            this.Color_Aqua.Name = "Color_Aqua";
+            this.Color_Aqua.Size = new System.Drawing.Size(18, 18);
+            this.Color_Aqua.TabIndex = 19;
+            this.Color_Aqua.UseVisualStyleBackColor = false;
+            this.Color_Aqua.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Purple
+            // 
+            this.Color_Purple.BackColor = System.Drawing.Color.Fuchsia;
+            this.Color_Purple.FlatAppearance.BorderSize = 0;
+            this.Color_Purple.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Purple.Location = new System.Drawing.Point(209, 486);
+            this.Color_Purple.Name = "Color_Purple";
+            this.Color_Purple.Size = new System.Drawing.Size(18, 18);
+            this.Color_Purple.TabIndex = 23;
+            this.Color_Purple.UseVisualStyleBackColor = false;
+            this.Color_Purple.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // Color_Uhm
+            // 
+            this.Color_Uhm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.Color_Uhm.FlatAppearance.BorderSize = 0;
+            this.Color_Uhm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Color_Uhm.Location = new System.Drawing.Point(209, 510);
+            this.Color_Uhm.Name = "Color_Uhm";
+            this.Color_Uhm.Size = new System.Drawing.Size(18, 18);
+            this.Color_Uhm.TabIndex = 24;
+            this.Color_Uhm.UseVisualStyleBackColor = false;
+            this.Color_Uhm.Click += new System.EventHandler(this.ColorClick);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(233, 483);
+            this.trackBar1.Minimum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.TabIndex = 25;
+            this.trackBar1.Value = 1;
             // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 638);
+            this.ClientSize = new System.Drawing.Size(907, 638);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.Color_Uhm);
+            this.Controls.Add(this.Color_Purple);
+            this.Controls.Add(this.Color_LightBlue);
+            this.Controls.Add(this.Color_Blue);
+            this.Controls.Add(this.Color_lightAqua);
+            this.Controls.Add(this.Color_Aqua);
+            this.Controls.Add(this.Color_LightGreen);
+            this.Controls.Add(this.Color_Green);
+            this.Controls.Add(this.Color_Peach);
+            this.Controls.Add(this.Color_Yellow);
+            this.Controls.Add(this.Color_Pink);
+            this.Controls.Add(this.Color_Orange);
+            this.Controls.Add(this.Color_Brown);
+            this.Controls.Add(this.Color_Red);
+            this.Controls.Add(this.Color_Gray);
+            this.Controls.Add(this.Color_Darkgray);
+            this.Controls.Add(this.Color_White);
+            this.Controls.Add(this.Color_Black);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -111,10 +378,12 @@
             this.Controls.Add(this.Game_HintsPicture);
             this.Controls.Add(this.Game_WhoIsDrawing);
             this.Controls.Add(this.Game_GamePicturebox);
+            this.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.Name = "Game";
             this.Text = "Game";
             ((System.ComponentModel.ISupportInitialize)(this.Game_GamePicturebox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Game_HintsPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,5 +398,24 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button Color_Black;
+        private System.Windows.Forms.Button Color_White;
+        private System.Windows.Forms.Button Color_Darkgray;
+        private System.Windows.Forms.Button Color_Gray;
+        private System.Windows.Forms.Button Color_Pink;
+        private System.Windows.Forms.Button Color_Orange;
+        private System.Windows.Forms.Button Color_Brown;
+        private System.Windows.Forms.Button Color_Red;
+        private System.Windows.Forms.Button Color_LightGreen;
+        private System.Windows.Forms.Button Color_Green;
+        private System.Windows.Forms.Button Color_Peach;
+        private System.Windows.Forms.Button Color_Yellow;
+        private System.Windows.Forms.Button Color_LightBlue;
+        private System.Windows.Forms.Button Color_Blue;
+        private System.Windows.Forms.Button Color_lightAqua;
+        private System.Windows.Forms.Button Color_Aqua;
+        private System.Windows.Forms.Button Color_Purple;
+        private System.Windows.Forms.Button Color_Uhm;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }

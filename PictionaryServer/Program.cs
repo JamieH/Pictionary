@@ -16,10 +16,10 @@ namespace PictionaryServer
 
         private static void Main()
         {
-            var config = new NetPeerConfiguration("pic") {Port = 666, EnableUPnP = true, MaximumConnections = 50};
+            var config = new NetPeerConfiguration("pic") {Port = 666, EnableUPnP = true, MaximumConnections = 50, ConnectionTimeout = 5f};
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-
             var server = new NetServer(config);
+            
             server.Start();
             server.UPnP.ForwardPort(666, "Pictionary");
 
@@ -160,7 +160,7 @@ namespace PictionaryServer
             }
         }
 
-        public static Player LookUpPlayer(long UID)
+        private static Player LookUpPlayer(long UID)
         {
             return Players[UID];
         }

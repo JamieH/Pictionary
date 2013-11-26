@@ -12,6 +12,7 @@ namespace PictionaryClient
         private static Image lobbyPictureImage = new Bitmap(900, 600);
         public static Timer timer = new Timer {Interval = 1000, Enabled = false};
         private static int _countDown = 10;
+        public static Game game = new Game();
         public Lobby()
         {
             InitializeComponent();
@@ -27,7 +28,8 @@ namespace PictionaryClient
                 Network.SendText(PacketTypes.Headers.ChatSend, "Game is now starting!");
                 _countDown = 10;
                 timer.Stop();
-
+                game.Show();
+                Hide();
             }
         }
 
