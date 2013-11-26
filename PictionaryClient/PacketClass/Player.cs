@@ -18,6 +18,12 @@ namespace PictionaryClient.PacketClass
             Name = name;
             UID = uid;
         }
+        public Player(string name, long uid, bool readyStatus)
+        {
+            Name = name;
+            UID = uid;
+            _readyStatus = readyStatus;
+        }
 
         public void ToggleReady()
         {

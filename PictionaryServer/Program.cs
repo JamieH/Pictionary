@@ -127,6 +127,7 @@ namespace PictionaryServer
                     Player thePlayer = LookUpPlayer(inc.SenderConnection.RemoteUniqueIdentifier);
 
                     Console.WriteLine("Player {0} changed status to {1}", thePlayer.Name, playerStatus);
+                    Players[inc.SenderConnection.RemoteUniqueIdentifier].ToggleReady();
                     NetOutgoingMessage msg = server.CreateMessage();
                     msg.Write((byte) PacketTypes.Headers.ReadyUpdate);
                     msg.Write(inc.SenderConnection.RemoteUniqueIdentifier);

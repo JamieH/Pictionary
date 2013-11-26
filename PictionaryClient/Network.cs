@@ -61,9 +61,10 @@ namespace PictionaryClient
                             case PacketTypes.Headers.PlayerRec:
                                var uid = inc.ReadInt64();
                                 var username = inc.ReadString();
-                                Player player = new Player(username, uid);
+                                var readyStatus = inc.ReadBoolean();
+                                Player player = new Player(username, uid, readyStatus);
                                 Program.PlayerStore.Add(uid, player);
-                                Console.WriteLine("Got new player called: {0}", username, uid);
+                                Console.WriteLine("Got new player called: {0} with ID {1} and status of {2}", username, uid, readyStatus);
                                 Menu.lobby.UpdateDisplay();
                                 break;
                             case PacketTypes.Headers.ReadyUpdate:
