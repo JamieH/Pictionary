@@ -45,6 +45,7 @@ namespace PictionaryClient
             Color color = Color.FromArgb(255, r, g, b);
             using (var gl = Graphics.FromImage(GamePictureImage))
             {
+                Console.WriteLine("Updating {0} : {1} : {2} : {3}", color.ToArgb().ToString(), x, y, size);
                 gl.FillRectangle(new SolidBrush(color),x, y ,size, size );
             }
         }

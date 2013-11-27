@@ -14,12 +14,12 @@ namespace PictionaryClient
         {
             NetOutgoingMessage msg = _netClient.CreateMessage();
             msg.Write((byte)PacketTypes.Headers.PictureUpdate);
-            msg.Write((int)color.R);
-            msg.Write((int)color.G);
-            msg.Write((int)color.B);
-            msg.Write((int)x);
-            msg.Write((int)y);
-            msg.Write((int)size);
+            msg.WriteVariableInt32(color.R);
+            msg.WriteVariableInt32(color.G);
+            msg.WriteVariableInt32(color.B);
+            msg.WriteVariableInt32(x);
+            msg.WriteVariableInt32(y);
+            msg.WriteVariableInt32(size);
             _netClient.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
         }
         public static void SendText(PacketTypes.Headers packet, string message)

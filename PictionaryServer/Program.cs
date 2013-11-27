@@ -158,20 +158,20 @@ namespace PictionaryServer
                     server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
                     break;
                 case PacketTypes.Headers.PictureUpdate:
-                                var r = inc.ReadInt16();
-                                var g = inc.ReadInt16();
-                                var b = inc.ReadInt16();
-                                var x = inc.ReadInt16();
-                                var y = inc.ReadInt16();
-                                var size = inc.ReadInt16();
+                                var r = inc.ReadInt32();
+                                var g = inc.ReadInt32();
+                                var b = inc.ReadInt32();
+                                var x = inc.ReadInt32();
+                                var y = inc.ReadInt32();
+                                var size = inc.ReadInt32();
                     var msgPicture = server.CreateMessage();
                     msgPicture.Write((byte)PacketTypes.Headers.PictureUpdate);
-                    msgPicture.Write((int)r);
-                    msgPicture.Write((int)g);
-                    msgPicture.Write((int)b);
-                    msgPicture.Write((int)x);
-                    msgPicture.Write((int)y);
-                    msgPicture.Write((int)size);
+                    msgPicture.WriteVariableInt32(r);
+                    msgPicture.WriteVariableInt32(g);
+                    msgPicture.WriteVariableInt32(b);
+                    msgPicture.WriteVariableInt32(x);
+                    msgPicture.WriteVariableInt32(y);
+                    msgPicture.WriteVariableInt32(size);
                     server.SendToAll(msgPicture, NetDeliveryMethod.ReliableOrdered);
                     break;
                 case PacketTypes.Headers.StartGame:
