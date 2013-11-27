@@ -48,6 +48,7 @@ namespace PictionaryClient
                 Console.WriteLine("Updating {0} : {1} : {2} : {3}", color.ToArgb().ToString(), x, y, size);
                 gl.FillRectangle(new SolidBrush(color),x, y ,size, size );
             }
+            Game_GamePicturebox.Image = GamePictureImage;
         }
         private void ColorClick(object sender, EventArgs e)
         {

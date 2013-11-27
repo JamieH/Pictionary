@@ -104,12 +104,12 @@ namespace PictionaryClient
                                 ChatboxHelpers.AppendText(Menu.lobby.Lobby_Chatbox, String.Format("{0} : {1}", chatUser, chatMsg));
                                 break;
                             case PacketTypes.Headers.PictureUpdate:
-                                var r = inc.ReadInt16();
-                                var g = inc.ReadInt16();
-                                var b = inc.ReadInt16();
-                                var x = inc.ReadInt16();
-                                var y = inc.ReadInt16();
-                                var size = inc.ReadInt16();
+                                var r = inc.ReadVariableInt32();
+                                var g = inc.ReadVariableInt32();
+                                var b = inc.ReadVariableInt32();
+                                var x = inc.ReadVariableInt32();
+                                var y = inc.ReadVariableInt32();
+                                var size = inc.ReadVariableInt32();
                                 Lobby.game.Game_GamePictureUpdate(r,g,b,x,y,size);
                                 break;
                             case PacketTypes.Headers.StartGame:
