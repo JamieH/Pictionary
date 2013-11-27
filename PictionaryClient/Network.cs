@@ -14,12 +14,12 @@ namespace PictionaryClient
         {
             NetOutgoingMessage msg = _netClient.CreateMessage();
             msg.Write((byte)PacketTypes.Headers.PictureUpdate);
-            msg.Write(color.R);
-            msg.Write(color.G);
-            msg.Write(color.B);
-            msg.Write(x);
-            msg.Write(y);
-            msg.Write(size);
+            msg.Write((int)color.R);
+            msg.Write((int)color.G);
+            msg.Write((int)color.B);
+            msg.Write((int)x);
+            msg.Write((int)y);
+            msg.Write((int)size);
             _netClient.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
         }
         public static void SendText(PacketTypes.Headers packet, string message)
@@ -111,6 +111,10 @@ namespace PictionaryClient
                                 var y = inc.ReadInt16();
                                 var size = inc.ReadInt16();
                                 Lobby.game.Game_GamePictureUpdate(r,g,b,x,y,size);
+                                break;
+                            case PacketTypes.Headers.StartGame:
+                                Menu.lobby.Hide();
+                                Lobby.game.Show();
                                 break;
                             default:
                                 Console.WriteLine(@"Invalid Packet Header: {0}", pheader);

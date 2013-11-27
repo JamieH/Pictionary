@@ -166,12 +166,18 @@ namespace PictionaryServer
                                 var size = inc.ReadInt16();
                     var msgPicture = server.CreateMessage();
                     msgPicture.Write((byte)PacketTypes.Headers.PictureUpdate);
-                    msgPicture.Write(r);
-                    msgPicture.Write(g);
-                    msgPicture.Write(b);
-                    msgPicture.Write(x);
-                    msgPicture.Write(y);
-                    msgPicture.Write(size);
+                    msgPicture.Write((int)r);
+                    msgPicture.Write((int)g);
+                    msgPicture.Write((int)b);
+                    msgPicture.Write((int)x);
+                    msgPicture.Write((int)y);
+                    msgPicture.Write((int)size);
+                    server.SendToAll(msgPicture, NetDeliveryMethod.ReliableOrdered);
+                    break;
+                case PacketTypes.Headers.StartGame:
+                    var msgStart = server.CreateMessage();
+                    msgStart.Write((byte)PacketTypes.Headers.StartGame);
+                    server.SendToAll(msgStart, NetDeliveryMethod.ReliableOrdered);
                     break;
             }
         }

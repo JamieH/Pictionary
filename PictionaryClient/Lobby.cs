@@ -28,8 +28,7 @@ namespace PictionaryClient
                 Network.SendText(PacketTypes.Headers.ChatSend, "Game is now starting!");
                 _countDown = 10;
                 timer.Stop();
-                game.Show();
-                Hide();
+                Network.SendText(PacketTypes.Headers.StartGame, "true");
             }
         }
 
