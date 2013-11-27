@@ -31,7 +31,7 @@ namespace PictionaryClient
 
         private void roundTimer_Tick(object sender, EventArgs e)
         {
-            if (Program.TimeLeft == 1)
+            if (Program.TimeLeft == 0)
             {
                 if (Program.AreWeDrawing)
                 {
