@@ -72,6 +72,7 @@
     <Compile Include="Network.cs" />
     <Compile Include="PacketClass\Player.cs" />
     <Compile Include="PacketClass\PacketTypes.cs" />
+    <Compile Include="PacketClass\Round.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Game.resx">

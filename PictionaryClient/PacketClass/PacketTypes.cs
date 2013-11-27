@@ -13,7 +13,9 @@ namespace PictionaryShared
             LoggedIn,
             YouAreHost,
             StartGame,
-            PictureUpdate
+            PictureUpdate,
+            NewRound,
+            WordMessage
         }
     }
 }

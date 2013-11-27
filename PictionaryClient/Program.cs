@@ -13,6 +13,10 @@ namespace PictionaryClient
         public static Dictionary<long, Player> PlayerStore = new Dictionary<long, Player>(); //This is where we store the player
         public static Boolean didError = false;
         public static Boolean AreWeHost;
+        public static Boolean AreWeDrawing;
+        public static String Word;
+        public static String Drawer;
+        public static Int16 TimeLeft = 90;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -24,5 +28,6 @@ namespace PictionaryClient
             Application.Run(new Menu());
 
         }
+
     }
 }

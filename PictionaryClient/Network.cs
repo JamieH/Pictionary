@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿    using System.Drawing;
 using Lidgren.Network;
 using PictionaryClient.PacketClass;
 using PictionaryShared;
@@ -115,6 +115,15 @@ namespace PictionaryClient
                             case PacketTypes.Headers.StartGame:
                                 Menu.lobby.Hide();
                                 Lobby.game.Show();
+                                break;
+                            case PacketTypes.Headers.WordMessage:
+                                Program.AreWeDrawing = true;
+                                Program.Word = inc.ReadString();
+                                Lobby.game.roundTimer.Start();
+                                break;
+                            case PacketTypes.Headers.NewRound:
+                                Program.Drawer = inc.ReadString();
+                                Lobby.game.updateDisplay();
                                 break;
                             default:
                                 Console.WriteLine(@"Invalid Packet Header: {0}", pheader);

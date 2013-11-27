@@ -178,10 +178,43 @@ namespace PictionaryServer
                     var msgStart = server.CreateMessage();
                     msgStart.Write((byte)PacketTypes.Headers.StartGame);
                     server.SendToAll(msgStart, NetDeliveryMethod.ReliableOrdered);
+                    startNewRound(server);
                     break;
             }
         }
 
+        private static void startNewRound(NetServer server)
+        {
+            Round theRound = newRound();
+            var newRoundMsg = server.CreateMessage();
+            newRoundMsg.Write((byte) PacketTypes.Headers.NewRound);
+            newRoundMsg.Write(theRound.Drawer.Name);
+            server.SendToAll(newRoundMsg, NetDeliveryMethod.ReliableOrdered);
+
+            var DrawerMsg = server.CreateMessage();
+            DrawerMsg.Write((byte) PacketTypes.Headers.WordMessage);
+            DrawerMsg.Write(theRound.Word);
+            server.SendMessage(DrawerMsg, theRound.Drawer.Connection, NetDeliveryMethod.ReliableOrdered);
+            return;
+        }
+
+        private static Round newRound()
+        {
+            int lowestPlayer = 100;
+            Player lowestPlayerPlayer = new Player("Debug");
+            foreach (var p in Players)
+            {
+                if (p.Value.drawTimes < lowestPlayer)
+                {
+                    lowestPlayer = p.Value.drawTimes;
+                    lowestPlayerPlayer = p.Value;
+                }
+            }
+            var ra = new Random();;
+            var word = _wordList[ra.Next(_wordList.Count)];
+            Console.WriteLine("Player: {0} is drawing the word {1}", lowestPlayerPlayer.Name, word);
+            return new Round(lowestPlayerPlayer, word);
+        }
         private static Player LookUpPlayer(long UID)
         {
             return Players[UID];
@@ -194,7 +227,7 @@ namespace PictionaryServer
 
             list = new List<string>();
             int count = 0;
-            foreach (string line in File.ReadAllLines("nouns.txt"))
+            foreach (string line in File.ReadAllLines("list.txt"))
             {
                 list.Add(line);
                 count++;

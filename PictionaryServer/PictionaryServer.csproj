@@ -50,6 +50,9 @@
     <Compile Include="..\PictionaryClient\PacketClass\Player.cs">
       <Link>PacketClass\Player.cs</Link>
     </Compile>
+    <Compile Include="..\PictionaryClient\PacketClass\Round.cs">
+      <Link>PacketClass\Round.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
