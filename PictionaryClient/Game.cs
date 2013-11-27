@@ -34,16 +34,18 @@ namespace PictionaryClient
             {
                 using (var g = Graphics.FromImage(GamePictureImage)) //g is an alias, picture is gened
                 {
-
-                    int counter = 1; // counter for how many players to do with pos
-                    int y = 10; //y coord
-
-
                     g.FillRectangle(new SolidBrush(penColor), e.X, e.Y, pixelSize.Value, pixelSize.Value);
-                    counter++;
-
+                    Network.SendDraw(penColor, e.X, e.Y, pixelSize.Value);
                     Game_GamePicturebox.Image = GamePictureImage;
                 }
+            }
+        }
+        public void Game_GamePictureUpdate(int r, int g, int b, int x, int y, int size)
+        {
+            Color color = Color.FromArgb(255, r, g, b);
+            using (var gl = Graphics.FromImage(GamePictureImage))
+            {
+                gl.FillRectangle(new SolidBrush(color),x, y ,size, size );
             }
         }
         private void ColorClick(object sender, EventArgs e)

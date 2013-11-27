@@ -12,8 +12,8 @@ namespace PictionaryShared
             ReadyUpdate,
             LoggedIn,
             YouAreHost,
-            HostCanStart,
-            StartGame
+            StartGame,
+            PictureUpdate
         }
     }
 }

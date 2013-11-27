@@ -1,4 +1,5 @@
-﻿using Lidgren.Network;
+﻿using System.Drawing;
+using Lidgren.Network;
 using PictionaryClient.PacketClass;
 using PictionaryShared;
 using System;
@@ -8,6 +9,19 @@ namespace PictionaryClient
     static class Network
     {
         private static NetClient _netClient;
+
+        public static void SendDraw(Color color, int x, int y, int size)
+        {
+            NetOutgoingMessage msg = _netClient.CreateMessage();
+            msg.Write((byte)PacketTypes.Headers.PictureUpdate);
+            msg.Write(color.R);
+            msg.Write(color.G);
+            msg.Write(color.B);
+            msg.Write(x);
+            msg.Write(y);
+            msg.Write(size);
+            _netClient.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+        }
         public static void SendText(PacketTypes.Headers packet, string message)
         {
             NetOutgoingMessage msg = _netClient.CreateMessage();
@@ -88,6 +102,15 @@ namespace PictionaryClient
                                 var chatUser = inc.ReadString();
                                 var chatMsg = inc.ReadString();
                                 ChatboxHelpers.AppendText(Menu.lobby.Lobby_Chatbox, String.Format("{0} : {1}", chatUser, chatMsg));
+                                break;
+                            case PacketTypes.Headers.PictureUpdate:
+                                var r = inc.ReadInt16();
+                                var g = inc.ReadInt16();
+                                var b = inc.ReadInt16();
+                                var x = inc.ReadInt16();
+                                var y = inc.ReadInt16();
+                                var size = inc.ReadInt16();
+                                Lobby.game.Game_GamePictureUpdate(r,g,b,x,y,size);
                                 break;
                             default:
                                 Console.WriteLine(@"Invalid Packet Header: {0}", pheader);

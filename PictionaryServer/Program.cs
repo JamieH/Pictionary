@@ -157,6 +157,22 @@ namespace PictionaryServer
                     chatMessageRelay.Write(chatM);
                     server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
                     break;
+                case PacketTypes.Headers.PictureUpdate:
+                                var r = inc.ReadInt16();
+                                var g = inc.ReadInt16();
+                                var b = inc.ReadInt16();
+                                var x = inc.ReadInt16();
+                                var y = inc.ReadInt16();
+                                var size = inc.ReadInt16();
+                    var msgPicture = server.CreateMessage();
+                    msgPicture.Write((byte)PacketTypes.Headers.PictureUpdate);
+                    msgPicture.Write(r);
+                    msgPicture.Write(g);
+                    msgPicture.Write(b);
+                    msgPicture.Write(x);
+                    msgPicture.Write(y);
+                    msgPicture.Write(size);
+                    break;
             }
         }
 
