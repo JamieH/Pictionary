@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using PictionaryShared;
 
 namespace PictionaryClient
 {
@@ -32,12 +33,17 @@ namespace PictionaryClient
         {
             if (Program.TimeLeft == 1)
             {
+                if (Program.AreWeDrawing)
+                {
+                    Network.SendText(PacketTypes.Headers.ChatSend, "The word I was drawing was: " +  Program.Word);
+                }
                 updateDisplay();
                 Program.TimeLeft = 90;
                 roundTimer.Stop();
             }
             else
             {
+                Program.TimeLeft --;
                 updateDisplay();
             }
         }
@@ -119,6 +125,23 @@ namespace PictionaryClient
                     pixelSize.Value, pixelSize.Value);
                 Game_DrawSize.Image = GameDrawSize;
             }
+        }
+
+        public void clearImage()
+        {
+            Graphics g = Graphics.FromImage(GamePictureImage);
+            g.Clear(Color.White);
+            Game_GamePicturebox.Image = GamePictureImage;
+        }
+
+        public void showWord(string word)
+        {
+            MessageBox.Show("You are drawing: " + word);
+        }
+
+        private void Game_RemindMe_Click(object sender, EventArgs e)
+        {
+            showWord(Program.Word);
         }
     }
 }

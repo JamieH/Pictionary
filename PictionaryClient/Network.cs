@@ -119,10 +119,13 @@ namespace PictionaryClient
                             case PacketTypes.Headers.WordMessage:
                                 Program.AreWeDrawing = true;
                                 Program.Word = inc.ReadString();
-                                Lobby.game.roundTimer.Start();
+                                Lobby.game.showWord(Program.Word);
+                                Lobby.game.Game_RemindMe.Visible = true;
                                 break;
                             case PacketTypes.Headers.NewRound:
+                                Lobby.game.Game_RemindMe.Visible = false;
                                 Program.Drawer = inc.ReadString();
+                                Lobby.game.roundTimer.Start();
                                 Lobby.game.updateDisplay();
                                 break;
                             default:

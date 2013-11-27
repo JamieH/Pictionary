@@ -55,6 +55,7 @@
             this.Color_Uhm = new System.Windows.Forms.Button();
             this.pixelSize = new System.Windows.Forms.TrackBar();
             this.Game_DrawSize = new System.Windows.Forms.PictureBox();
+            this.Game_RemindMe = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Game_GamePicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Game_HintsPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pixelSize)).BeginInit();
@@ -361,11 +362,23 @@
             this.Game_DrawSize.TabIndex = 26;
             this.Game_DrawSize.TabStop = false;
             // 
+            // Game_RemindMe
+            // 
+            this.Game_RemindMe.Location = new System.Drawing.Point(820, 9);
+            this.Game_RemindMe.Name = "Game_RemindMe";
+            this.Game_RemindMe.Size = new System.Drawing.Size(75, 23);
+            this.Game_RemindMe.TabIndex = 27;
+            this.Game_RemindMe.Text = "Remind me";
+            this.Game_RemindMe.UseVisualStyleBackColor = true;
+            this.Game_RemindMe.Visible = false;
+            this.Game_RemindMe.Click += new System.EventHandler(this.Game_RemindMe_Click);
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 624);
+            this.Controls.Add(this.Game_RemindMe);
             this.Controls.Add(this.Game_DrawSize);
             this.Controls.Add(this.pixelSize);
             this.Controls.Add(this.Color_Uhm);
@@ -434,5 +447,6 @@
         public System.Windows.Forms.Label Game_WhoIsDrawing;
         public System.Windows.Forms.Label Game_DrawTimeLeft;
         private System.Windows.Forms.PictureBox Game_DrawSize;
+        public System.Windows.Forms.Button Game_RemindMe;
     }
 }
