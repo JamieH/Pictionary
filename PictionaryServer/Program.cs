@@ -179,7 +179,7 @@ namespace PictionaryServer
                         chatMessageRelay.Write(chatM);
                         server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
 
-                        if (chatM == theWord & chatM != null)
+                        if (String.Equals(chatM, theWord, StringComparison.CurrentCultureIgnoreCase) & chatM != null)
                         {
                             NetOutgoingMessage someoneOne = server.CreateMessage();
                             someoneOne.Write((byte) PacketTypes.Headers.ChatReceive);
