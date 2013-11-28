@@ -22,6 +22,20 @@ namespace PictionaryClient
             msg.WriteVariableInt32(size);
             _netClient.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
         }
+        public static void SendDrawline(Color color, int x, int y, int size, int x1, int y1)
+        {
+            NetOutgoingMessage msg = _netClient.CreateMessage();
+            msg.Write((byte)PacketTypes.Headers.DrawLine);
+            msg.WriteVariableInt32(color.R);
+            msg.WriteVariableInt32(color.G);
+            msg.WriteVariableInt32(color.B);
+            msg.WriteVariableInt32(x);
+            msg.WriteVariableInt32(y);
+            msg.WriteVariableInt32(size);
+            msg.WriteVariableInt32(x1);
+            msg.WriteVariableInt32(y1);
+            _netClient.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+        }
         public static void SendText(PacketTypes.Headers packet, string message)
         {
             NetOutgoingMessage msg = _netClient.CreateMessage();
@@ -102,15 +116,18 @@ namespace PictionaryClient
                                 var chatUser = inc.ReadString();
                                 var chatMsg = inc.ReadString();
                                 ChatboxHelpers.AppendText(Menu.lobby.Lobby_Chatbox, String.Format("{0} : {1}", chatUser, chatMsg));
+                                ChatboxHelpers.AppendText(Lobby.game.Game_Chatbox, String.Format("{0} : {1}", chatUser, chatMsg));
                                 break;
                             case PacketTypes.Headers.PictureUpdate:
+                            {
                                 var r = inc.ReadVariableInt32();
                                 var g = inc.ReadVariableInt32();
                                 var b = inc.ReadVariableInt32();
                                 var x = inc.ReadVariableInt32();
                                 var y = inc.ReadVariableInt32();
                                 var size = inc.ReadVariableInt32();
-                                Lobby.game.Game_GamePictureUpdate(r,g,b,x,y,size);
+                                Lobby.game.Game_GamePictureUpdate(r, g, b, x, y, size);
+                            }
                                 break;
                             case PacketTypes.Headers.StartGame:
                                 Menu.lobby.Hide();
@@ -121,12 +138,30 @@ namespace PictionaryClient
                                 Program.Word = inc.ReadString();
                                 Lobby.game.showWord(Program.Word);
                                 Lobby.game.Game_RemindMe.Visible = true;
+                                Lobby.game.updateDisplay();
                                 break;
                             case PacketTypes.Headers.NewRound:
+                            {
+                                Program.TimeLeft = 90;
                                 Lobby.game.Game_RemindMe.Visible = false;
                                 Program.Drawer = inc.ReadString();
                                 Lobby.game.roundTimer.Start();
                                 Lobby.game.updateDisplay();
+                            }
+                                break;
+                            case PacketTypes.Headers.DrawLine:
+                            {
+                                Console.WriteLine("Got a drawline");
+                                var r = inc.ReadVariableInt32();
+                                var g = inc.ReadVariableInt32();
+                                var b = inc.ReadVariableInt32();
+                                var x = inc.ReadVariableInt32();
+                                var y = inc.ReadVariableInt32();
+                                var size = inc.ReadVariableInt32();
+                                var x1 = inc.ReadVariableInt32();
+                                var y1 = inc.ReadVariableInt32();
+                                Lobby.game.Game_GamePictureDrawline(r, g, b, x, y, size, x1, y1);
+                            }
                                 break;
                             default:
                                 Console.WriteLine(@"Invalid Packet Header: {0}", pheader);

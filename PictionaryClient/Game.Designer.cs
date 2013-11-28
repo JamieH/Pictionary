@@ -32,9 +32,9 @@
             this.Game_WhoIsDrawing = new System.Windows.Forms.Label();
             this.Game_HintsPicture = new System.Windows.Forms.PictureBox();
             this.Game_DrawTimeLeft = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Game_OutgoingMessageBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.Game_Chatbox = new System.Windows.Forms.RichTextBox();
             this.Color_Black = new System.Windows.Forms.Button();
             this.Color_White = new System.Windows.Forms.Button();
             this.Color_Darkgray = new System.Windows.Forms.Button();
@@ -103,12 +103,13 @@
             this.Game_DrawTimeLeft.TabIndex = 3;
             this.Game_DrawTimeLeft.Text = "Username has 90 seconds left";
             // 
-            // textBox1
+            // Game_OutgoingMessageBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 595);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(797, 20);
-            this.textBox1.TabIndex = 4;
+            this.Game_OutgoingMessageBox.Location = new System.Drawing.Point(12, 595);
+            this.Game_OutgoingMessageBox.Name = "Game_OutgoingMessageBox";
+            this.Game_OutgoingMessageBox.Size = new System.Drawing.Size(797, 20);
+            this.Game_OutgoingMessageBox.TabIndex = 4;
+            this.Game_OutgoingMessageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_OutgoingMessageBox_KeyDown);
             // 
             // button1
             // 
@@ -118,14 +119,15 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Send";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Game_SendMessageButton_Click);
             // 
-            // richTextBox1
+            // Game_Chatbox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 508);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(878, 81);
-            this.richTextBox1.TabIndex = 6;
-            this.richTextBox1.Text = "";
+            this.Game_Chatbox.Location = new System.Drawing.Point(12, 508);
+            this.Game_Chatbox.Name = "Game_Chatbox";
+            this.Game_Chatbox.Size = new System.Drawing.Size(878, 81);
+            this.Game_Chatbox.TabIndex = 6;
+            this.Game_Chatbox.Text = "";
             // 
             // Color_Black
             // 
@@ -399,9 +401,9 @@
             this.Controls.Add(this.Color_Darkgray);
             this.Controls.Add(this.Color_White);
             this.Controls.Add(this.Color_Black);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.Game_Chatbox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Game_OutgoingMessageBox);
             this.Controls.Add(this.Game_DrawTimeLeft);
             this.Controls.Add(this.Game_HintsPicture);
             this.Controls.Add(this.Game_WhoIsDrawing);
@@ -422,9 +424,8 @@
 
         private System.Windows.Forms.PictureBox Game_GamePicturebox;
         private System.Windows.Forms.PictureBox Game_HintsPicture;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Game_OutgoingMessageBox;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button Color_Black;
         private System.Windows.Forms.Button Color_White;
         private System.Windows.Forms.Button Color_Darkgray;
@@ -448,5 +449,6 @@
         public System.Windows.Forms.Label Game_DrawTimeLeft;
         private System.Windows.Forms.PictureBox Game_DrawSize;
         public System.Windows.Forms.Button Game_RemindMe;
+        public System.Windows.Forms.RichTextBox Game_Chatbox;
     }
 }

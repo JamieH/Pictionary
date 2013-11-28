@@ -87,6 +87,7 @@ namespace PictionaryClient
 
                 Game_GamePictureUpdate(penColor.R, penColor.G, penColor.B, e.X, e.Y, pixelSize.Value);
                 Network.SendDraw(penColor, e.X, e.Y, pixelSize.Value);
+                Network.SendDrawline(penColor, e.X, e.Y, pixelSize.Value, oldX, oldY);
                 Game_GamePicturebox.Image = GamePictureImage;
             }
         }
@@ -98,6 +99,15 @@ namespace PictionaryClient
             {
                 gl.DrawLine(new Pen(color, pixelSize.Value), oldX, oldY, newX, newY);
                 gl.FillEllipse(new SolidBrush(color), x - (size/2), y - (size/2), size, size);
+            }
+            Game_GamePicturebox.Image = GamePictureImage;
+        }
+        public void Game_GamePictureDrawline(int r, int g, int b, int x, int y, int size, int x1, int y1)
+        {
+            Color color = Color.FromArgb(255, r, g, b);
+            using (Graphics gl = Graphics.FromImage(GamePictureImage))
+            {
+                gl.DrawLine(new Pen(color, size), x, y, x1, y1);
             }
             Game_GamePicturebox.Image = GamePictureImage;
         }
@@ -142,6 +152,29 @@ namespace PictionaryClient
         private void Game_RemindMe_Click(object sender, EventArgs e)
         {
             showWord(Program.Word);
+        }
+
+        private void Game_SendMessageButton_Click(object sender, EventArgs e)
+        {
+
+            if (Game_OutgoingMessageBox.Text.Length <= 2)
+            {
+                Network.SendText(PacketTypes.Headers.ChatSend, Game_OutgoingMessageBox.Text);
+                Game_OutgoingMessageBox.Text = "";
+            }
+
+        }
+
+        private void Game_OutgoingMessageBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (Game_OutgoingMessageBox.Text.Length >= 2)
+                {
+                    Network.SendText(PacketTypes.Headers.ChatSend, Game_OutgoingMessageBox.Text);
+                    Game_OutgoingMessageBox.Text = "";
+                }
+            }
         }
     }
 }

@@ -16,9 +16,10 @@ namespace PictionaryServer
         private static readonly Dictionary<long, Player> Players = new Dictionary<long, Player>();
         private static List<string> _wordList = new List<string>();
         private static readonly Timer roundTimer = new Timer {Interval = 92*1000, Enabled = true};
-        private static string theWord = null;
-        private static string Drawer = null;
+        private static string theWord;
+        private static string Drawer;
         private static NetServer server;
+
         private static void Main()
         {
             var config = new NetPeerConfiguration("pic")
@@ -52,9 +53,10 @@ namespace PictionaryServer
         private static void roundTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             NetOutgoingMessage failedmsg = server.CreateMessage();
-            failedmsg.Write((byte)PacketTypes.Headers.ChatReceive);
+            failedmsg.Write((byte) PacketTypes.Headers.ChatReceive);
             failedmsg.Write("Server");
             failedmsg.Write("You have all failed. The word was:" + theWord);
+            server.SendToAll(failedmsg, NetDeliveryMethod.ReliableOrdered);
             startNewRound(server);
         }
 
@@ -184,9 +186,9 @@ namespace PictionaryServer
                             NetOutgoingMessage someoneOne = server.CreateMessage();
                             someoneOne.Write((byte) PacketTypes.Headers.ChatReceive);
                             someoneOne.Write("Server");
-                            someoneOne.Write(Players[inc.SenderConnection.RemoteUniqueIdentifier].Name 
-                                + " has guessed the correct word being: " + theWord);
-                            server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
+                            someoneOne.Write(Players[inc.SenderConnection.RemoteUniqueIdentifier].Name
+                                             + " has guessed the correct word being: " + theWord);
+                            server.SendToAll(someoneOne, NetDeliveryMethod.ReliableOrdered);
                             roundTimer.Stop();
                             startNewRound(server);
                         }
@@ -215,6 +217,30 @@ namespace PictionaryServer
                     server.SendToAll(msgStart, NetDeliveryMethod.ReliableOrdered);
                     startNewRound(server);
                     break;
+                case PacketTypes.Headers.DrawLine:
+                {
+                    Console.WriteLine("Got a drawline");
+                    int r1 = inc.ReadVariableInt32();
+                    int g1 = inc.ReadVariableInt32();
+                    int b1 = inc.ReadVariableInt32();
+                    int x1 = inc.ReadVariableInt32();
+                    int y1 = inc.ReadVariableInt32();
+                    int size1 = inc.ReadVariableInt32();
+                    int x11 = inc.ReadVariableInt32();
+                    int y11 = inc.ReadVariableInt32();
+                    NetOutgoingMessage msgDrawLine = server.CreateMessage();
+                    msgDrawLine.Write((byte)PacketTypes.Headers.DrawLine);
+                    msgDrawLine.WriteVariableInt32(r1);
+                    msgDrawLine.WriteVariableInt32(g1);
+                    msgDrawLine.WriteVariableInt32(b1);
+                    msgDrawLine.WriteVariableInt32(x1);
+                    msgDrawLine.WriteVariableInt32(y1);
+                    msgDrawLine.WriteVariableInt32(size1);
+                    msgDrawLine.WriteVariableInt32(x11);
+                    msgDrawLine.WriteVariableInt32(y11);
+                    server.SendToAll(msgDrawLine, NetDeliveryMethod.ReliableOrdered);
+                }
+                    break;
             }
         }
 
@@ -232,8 +258,8 @@ namespace PictionaryServer
             DrawerMsg.Write((byte) PacketTypes.Headers.WordMessage);
             DrawerMsg.Write(theRound.Word);
             server.SendMessage(DrawerMsg, theRound.Drawer.Connection, NetDeliveryMethod.ReliableOrdered);
-            roundTimer.Start();
             theWord = theRound.Word;
+            roundTimer.Start();
         }
 
         private static Round newRound()

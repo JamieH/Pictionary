@@ -15,7 +15,8 @@ namespace PictionaryShared
             StartGame,
             PictureUpdate,
             NewRound,
-            WordMessage
+            WordMessage,
+            DrawLine
         }
     }
 }
