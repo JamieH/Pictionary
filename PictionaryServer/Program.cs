@@ -44,8 +44,6 @@ namespace PictionaryServer
             while (true)
             {
                 if ((inc = server.ReadMessage()) == null) continue;
-                Console.WriteLine(@"Message Received");
-                Console.WriteLine(inc.MessageType);
                 HandleMessage(inc, server);
             }
         }
@@ -219,7 +217,6 @@ namespace PictionaryServer
                     break;
                 case PacketTypes.Headers.DrawLine:
                 {
-                    Console.WriteLine("Got a drawline");
                     int r1 = inc.ReadVariableInt32();
                     int g1 = inc.ReadVariableInt32();
                     int b1 = inc.ReadVariableInt32();
@@ -275,7 +272,7 @@ namespace PictionaryServer
                 }
             }
             var ra = new Random();
-            ;
+            lowestPlayerPlayer.drawTimes++;
             string word = _wordList[ra.Next(_wordList.Count)];
             Console.WriteLine("Player: {0} is drawing the word {1}", lowestPlayerPlayer.Name, word);
             return new Round(lowestPlayerPlayer, word);
