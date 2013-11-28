@@ -103,23 +103,34 @@ namespace PictionaryClient
             bool notReady = false;
             foreach (var p in Program.PlayerStore)
             {
-                if (!p.Value.GetReadyStatus())
+                if (!p.Value.GetReadyStatus() & p.Value.Name != Program.PlayerUsername)
                 {
                     notReady = true;
                 }
             }
-
-            if (notReady)
+            if (timer.Enabled)
             {
-                timer.Enabled = true;
-                timer.Start();
+                Lobby_HostStart.Text = "Start";
+                timer.Stop();
+                _countDown = 10;
+                Network.SendText(PacketTypes.Headers.ChatSend, "The countdown was cancelled!");
             }
             else
             {
-                _countDown = 5;
-                timer.Enabled = true;
-                timer.Start();
+                Lobby_HostStart.Text = "Cancel";
+                if (notReady)
+                {
+                    timer.Enabled = true;
+                    timer.Start();
+                }
+                else
+                {
+                    _countDown = 5;
+                    timer.Enabled = true;
+                    timer.Start();
+                }
             }
+            
         }
     }
 }

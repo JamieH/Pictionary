@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Timers;
 using Lidgren.Network;
@@ -67,13 +68,20 @@ namespace PictionaryServer
                     {
                         string username = inc.ReadString();
                         Console.WriteLine("New Login Request from: {0}", username);
-                        inc.SenderConnection.Approve();
-                        NetOutgoingMessage connectedMessage = server.CreateMessage();
-                        Thread.Sleep(500);
-                        Console.WriteLine("Sending a ack to {0}", username);
-                        connectedMessage.Write((byte) PacketTypes.Headers.LoggedIn);
-                        connectedMessage.Write(true);
-                        server.SendMessage(connectedMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                        if (username.Length > 1 & Players.Values.All(c => c.Name != username))
+                        {
+                            inc.SenderConnection.Approve();
+                            NetOutgoingMessage connectedMessage = server.CreateMessage();
+                            Thread.Sleep(500);
+                            Console.WriteLine("Sending a ack to {0}", username);
+                            connectedMessage.Write((byte) PacketTypes.Headers.LoggedIn);
+                            connectedMessage.Write(true);
+                            server.SendMessage(connectedMessage, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                        }
+                        else
+                        {
+                            inc.SenderConnection.Deny("Bad Username");
+                        }
                     }
 
                     break;

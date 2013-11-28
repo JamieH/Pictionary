@@ -33,7 +33,7 @@
             this.Game_HintsPicture = new System.Windows.Forms.PictureBox();
             this.Game_DrawTimeLeft = new System.Windows.Forms.Label();
             this.Game_OutgoingMessageBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Game_SendChatMessage = new System.Windows.Forms.Button();
             this.Game_Chatbox = new System.Windows.Forms.RichTextBox();
             this.Color_Black = new System.Windows.Forms.Button();
             this.Color_White = new System.Windows.Forms.Button();
@@ -111,15 +111,15 @@
             this.Game_OutgoingMessageBox.TabIndex = 4;
             this.Game_OutgoingMessageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_OutgoingMessageBox_KeyDown);
             // 
-            // button1
+            // Game_SendChatMessage
             // 
-            this.button1.Location = new System.Drawing.Point(815, 594);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 20);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Send";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Game_SendMessageButton_Click);
+            this.Game_SendChatMessage.Location = new System.Drawing.Point(815, 594);
+            this.Game_SendChatMessage.Name = "Game_SendChatMessage";
+            this.Game_SendChatMessage.Size = new System.Drawing.Size(75, 20);
+            this.Game_SendChatMessage.TabIndex = 5;
+            this.Game_SendChatMessage.Text = "Send";
+            this.Game_SendChatMessage.UseVisualStyleBackColor = true;
+            this.Game_SendChatMessage.Click += new System.EventHandler(this.Game_SendMessageButton_Click);
             // 
             // Game_Chatbox
             // 
@@ -402,7 +402,7 @@
             this.Controls.Add(this.Color_White);
             this.Controls.Add(this.Color_Black);
             this.Controls.Add(this.Game_Chatbox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Game_SendChatMessage);
             this.Controls.Add(this.Game_OutgoingMessageBox);
             this.Controls.Add(this.Game_DrawTimeLeft);
             this.Controls.Add(this.Game_HintsPicture);
@@ -425,7 +425,7 @@
         private System.Windows.Forms.PictureBox Game_GamePicturebox;
         private System.Windows.Forms.PictureBox Game_HintsPicture;
         private System.Windows.Forms.TextBox Game_OutgoingMessageBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Game_SendChatMessage;
         private System.Windows.Forms.Button Color_Black;
         private System.Windows.Forms.Button Color_White;
         private System.Windows.Forms.Button Color_Darkgray;

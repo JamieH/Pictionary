@@ -73,7 +73,6 @@ namespace PictionaryClient
             NetIncomingMessage inc;
             while ((inc = _netClient.ReadMessage()) != null)
             {
-                Console.WriteLine(inc.MessageType);
                 switch (inc.MessageType)
                 {
                     // Data type is all messages manually sent from client
@@ -151,7 +150,6 @@ namespace PictionaryClient
                                 break;
                             case PacketTypes.Headers.DrawLine:
                             {
-                                Console.WriteLine("Got a drawline");
                                 var r = inc.ReadVariableInt32();
                                 var g = inc.ReadVariableInt32();
                                 var b = inc.ReadVariableInt32();

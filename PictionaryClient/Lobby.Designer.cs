@@ -34,7 +34,6 @@
             this.Lobby_OutgoingMessageBox = new System.Windows.Forms.TextBox();
             this.Lobby_SendMessageButton = new System.Windows.Forms.Button();
             this.Lobby_Chatbox = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Lobby_PlayersPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,21 +92,11 @@
             this.Lobby_Chatbox.TabIndex = 5;
             this.Lobby_Chatbox.Text = "";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(581, 390);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
-            // 
             // Lobby
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 577);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.Lobby_Chatbox);
             this.Controls.Add(this.Lobby_SendMessageButton);
             this.Controls.Add(this.Lobby_OutgoingMessageBox);
@@ -128,7 +117,6 @@
         private System.Windows.Forms.Button Lobby_ReadyupButton;
         private System.Windows.Forms.TextBox Lobby_OutgoingMessageBox;
         private System.Windows.Forms.Button Lobby_SendMessageButton;
-        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.PictureBox Lobby_PlayersPicture;
         public System.Windows.Forms.Button Lobby_HostStart;
         public System.Windows.Forms.RichTextBox Lobby_Chatbox;

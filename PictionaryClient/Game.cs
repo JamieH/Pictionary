@@ -116,6 +116,18 @@ namespace PictionaryClient
         {
             Game_WhoIsDrawing.Text = String.Format("{0} is currently drawing", Program.Drawer);
             Game_DrawTimeLeft.Text = String.Format("{0} has {1} left to draw", Program.Drawer, Program.TimeLeft);
+            if (Program.Drawer == Program.PlayerUsername)
+            {
+                Game_OutgoingMessageBox.Text = "You may not use chat as you are drawing,";
+                Game_OutgoingMessageBox.Enabled = false;
+                Game_SendChatMessage.Enabled = false;
+            }
+            else
+            {
+                Game_OutgoingMessageBox.Text = "";
+                Game_OutgoingMessageBox.Enabled = true;
+                Game_SendChatMessage.Enabled = true;                
+            }
         }
 
         private void ColorClick(object sender, EventArgs e)
