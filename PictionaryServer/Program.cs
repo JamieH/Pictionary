@@ -16,6 +16,8 @@ namespace PictionaryServer
     {
         private static readonly Dictionary<long, Player> Players = new Dictionary<long, Player>();
         private static List<string> _wordList = new List<string>();
+        private static List<string> _badwordList = new List<string>();
+
         private static readonly Timer roundTimer = new Timer {Interval = 92*1000, Enabled = true};
         private static string theWord;
         private static string Drawer;
@@ -38,8 +40,11 @@ namespace PictionaryServer
 
             Console.WriteLine(@"Pictionary Server Started");
             long timeToRun;
-            int loadedWords = LoadWords(out _wordList, out timeToRun);
+            int loadedWords = LoadWords("list.txt", out _wordList, out timeToRun);
             Console.WriteLine("Loaded {0} words into the Word list taking {1} ms to run", loadedWords, timeToRun);
+
+            loadedWords = LoadWords("badwords.txt", out _badwordList, out timeToRun);
+            Console.WriteLine("Loaded {0} words into the Bad word list taking {1} ms to run", loadedWords, timeToRun);
             NetIncomingMessage inc; // Incoming Message
 
             while (true)
@@ -68,7 +73,7 @@ namespace PictionaryServer
                     {
                         string username = inc.ReadString();
                         Console.WriteLine("New Login Request from: {0}", username);
-                        if (username.Length > 1 & Players.Values.All(c => c.Name != username))
+                        if (username.Length > 1 & Players.Values.All(c => c.Name != username) & !_badwordList.Contains(username, StringComparer.OrdinalIgnoreCase))
                         {
                             inc.SenderConnection.Approve();
                             NetOutgoingMessage connectedMessage = server.CreateMessage();
@@ -185,8 +190,10 @@ namespace PictionaryServer
                         chatMessageRelay.Write((byte) PacketTypes.Headers.ChatReceive);
                         chatMessageRelay.Write(Players[inc.SenderConnection.RemoteUniqueIdentifier].Name);
                         chatMessageRelay.Write(chatM);
+                        if (!_badwordList.Contains(chatM, StringComparer.OrdinalIgnoreCase))
+                        {
                         server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
-
+                        }
                         if (String.Equals(chatM, theWord, StringComparison.CurrentCultureIgnoreCase) & chatM != null)
                         {
                             NetOutgoingMessage someoneOne = server.CreateMessage();
@@ -291,14 +298,14 @@ namespace PictionaryServer
             return Players[UID];
         }
 
-        private static int LoadWords(out List<string> list, out long timeToRun)
+        private static int LoadWords(string listname, out List<string> list, out long timeToRun)
         {
             var time = new Stopwatch();
             time.Start();
 
             list = new List<string>();
             int count = 0;
-            foreach (string line in File.ReadAllLines("list.txt"))
+            foreach (string line in File.ReadAllLines(listname))
             {
                 list.Add(line);
                 count++;
