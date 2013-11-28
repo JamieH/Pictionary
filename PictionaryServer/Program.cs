@@ -18,10 +18,10 @@ namespace PictionaryServer
         private static List<string> _wordList = new List<string>();
         private static List<string> _badwordList = new List<string>();
 
-        private static readonly Timer roundTimer = new Timer {Interval = 92*1000, Enabled = true};
-        private static string theWord;
-        private static string Drawer;
-        private static NetServer server;
+        private static readonly Timer RoundTimer = new Timer {Interval = 92*1000, Enabled = false};
+        private static string _theWord;
+        private static string _drawer;
+        private static NetServer _server;
 
         private static void Main()
         {
@@ -33,10 +33,10 @@ namespace PictionaryServer
                 ConnectionTimeout = 5f
             };
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            server = new NetServer(config);
-            roundTimer.Elapsed += roundTimer_Elapsed;
-            server.Start();
-            server.UPnP.ForwardPort(666, "Pictionary");
+            _server = new NetServer(config);
+            RoundTimer.Elapsed += roundTimer_Elapsed;
+            _server.Start();
+            _server.UPnP.ForwardPort(666, "Pictionary");
 
             Console.WriteLine(@"Pictionary Server Started");
             long timeToRun;
@@ -49,19 +49,20 @@ namespace PictionaryServer
 
             while (true)
             {
-                if ((inc = server.ReadMessage()) == null) continue;
-                HandleMessage(inc, server);
+                if ((inc = _server.ReadMessage()) == null) continue;
+                HandleMessage(inc, _server);
             }
+// ReSharper disable once FunctionNeverReturns
         }
 
         private static void roundTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            NetOutgoingMessage failedmsg = server.CreateMessage();
+            NetOutgoingMessage failedmsg = _server.CreateMessage();
             failedmsg.Write((byte) PacketTypes.Headers.ChatReceive);
             failedmsg.Write("Server");
-            failedmsg.Write("You have all failed. The word was:" + theWord);
-            server.SendToAll(failedmsg, NetDeliveryMethod.ReliableOrdered);
-            startNewRound(server);
+            failedmsg.Write("You have all failed. The word was:" + _theWord);
+            _server.SendToAll(failedmsg, NetDeliveryMethod.ReliableOrdered);
+            StartNewRound(_server);
         }
 
         private static void HandleMessage(NetIncomingMessage inc, NetServer server)
@@ -73,7 +74,8 @@ namespace PictionaryServer
                     {
                         string username = inc.ReadString();
                         Console.WriteLine("New Login Request from: {0}", username);
-                        if (username.Length > 1 & Players.Values.All(c => c.Name != username) & !_badwordList.Contains(username, StringComparer.OrdinalIgnoreCase))
+                        if (username.Length > 1 & Players.Values.All(c => c.Name != username) &
+                            !_badwordList.Contains(username, StringComparer.OrdinalIgnoreCase))
                         {
                             inc.SenderConnection.Approve();
                             NetOutgoingMessage connectedMessage = server.CreateMessage();
@@ -183,7 +185,7 @@ namespace PictionaryServer
                     Players[inc.SenderConnection.RemoteUniqueIdentifier].Connection = inc.SenderConnection;
                     break;
                 case PacketTypes.Headers.ChatSend:
-                    if (Players[inc.SenderConnection.RemoteUniqueIdentifier].Name != Drawer)
+                    if (Players[inc.SenderConnection.RemoteUniqueIdentifier].Name != _drawer)
                     {
                         NetOutgoingMessage chatMessageRelay = server.CreateMessage();
                         string chatM = inc.ReadString();
@@ -192,18 +194,18 @@ namespace PictionaryServer
                         chatMessageRelay.Write(chatM);
                         if (!_badwordList.Contains(chatM, StringComparer.OrdinalIgnoreCase))
                         {
-                        server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
+                            server.SendToAll(chatMessageRelay, NetDeliveryMethod.ReliableOrdered);
                         }
-                        if (String.Equals(chatM, theWord, StringComparison.CurrentCultureIgnoreCase) & chatM != null)
+                        if (String.Equals(chatM, _theWord, StringComparison.CurrentCultureIgnoreCase) & chatM != null)
                         {
                             NetOutgoingMessage someoneOne = server.CreateMessage();
                             someoneOne.Write((byte) PacketTypes.Headers.ChatReceive);
                             someoneOne.Write("Server");
                             someoneOne.Write(Players[inc.SenderConnection.RemoteUniqueIdentifier].Name
-                                             + " has guessed the correct word being: " + theWord);
+                                             + " has guessed the correct word being: " + _theWord);
                             server.SendToAll(someoneOne, NetDeliveryMethod.ReliableOrdered);
-                            roundTimer.Stop();
-                            startNewRound(server);
+                            RoundTimer.Stop();
+                            StartNewRound(server);
                         }
                     }
                     break;
@@ -228,7 +230,8 @@ namespace PictionaryServer
                     NetOutgoingMessage msgStart = server.CreateMessage();
                     msgStart.Write((byte) PacketTypes.Headers.StartGame);
                     server.SendToAll(msgStart, NetDeliveryMethod.ReliableOrdered);
-                    startNewRound(server);
+                    RoundTimer.Enabled = true;
+                    StartNewRound(server);
                     break;
                 case PacketTypes.Headers.DrawLine:
                 {
@@ -241,7 +244,7 @@ namespace PictionaryServer
                     int x11 = inc.ReadVariableInt32();
                     int y11 = inc.ReadVariableInt32();
                     NetOutgoingMessage msgDrawLine = server.CreateMessage();
-                    msgDrawLine.Write((byte)PacketTypes.Headers.DrawLine);
+                    msgDrawLine.Write((byte) PacketTypes.Headers.DrawLine);
                     msgDrawLine.WriteVariableInt32(r1);
                     msgDrawLine.WriteVariableInt32(g1);
                     msgDrawLine.WriteVariableInt32(b1);
@@ -256,46 +259,46 @@ namespace PictionaryServer
             }
         }
 
-        private static void startNewRound(NetServer server)
+        private static void StartNewRound(NetServer server)
         {
-            Round theRound = newRound();
-            Drawer = theRound.Drawer.Name;
-            theWord = theRound.Word;
+            Round theRound = NewRound();
+            _drawer = theRound.Drawer.Name;
+            _theWord = theRound.Word;
             NetOutgoingMessage newRoundMsg = server.CreateMessage();
             newRoundMsg.Write((byte) PacketTypes.Headers.NewRound);
             newRoundMsg.Write(theRound.Drawer.Name);
             server.SendToAll(newRoundMsg, NetDeliveryMethod.ReliableOrdered);
 
-            NetOutgoingMessage DrawerMsg = server.CreateMessage();
-            DrawerMsg.Write((byte) PacketTypes.Headers.WordMessage);
-            DrawerMsg.Write(theRound.Word);
-            server.SendMessage(DrawerMsg, theRound.Drawer.Connection, NetDeliveryMethod.ReliableOrdered);
-            theWord = theRound.Word;
-            roundTimer.Start();
+            NetOutgoingMessage drawerMsg = server.CreateMessage();
+            drawerMsg.Write((byte) PacketTypes.Headers.WordMessage);
+            drawerMsg.Write(theRound.Word);
+            server.SendMessage(drawerMsg, theRound.Drawer.Connection, NetDeliveryMethod.ReliableOrdered);
+            _theWord = theRound.Word;
+            RoundTimer.Start();
         }
 
-        private static Round newRound()
+        private static Round NewRound()
         {
             int lowestPlayer = 100;
             var lowestPlayerPlayer = new Player("Debug");
             foreach (var p in Players)
             {
-                if (p.Value.drawTimes < lowestPlayer)
+                if (p.Value.DrawTimes < lowestPlayer)
                 {
-                    lowestPlayer = p.Value.drawTimes;
+                    lowestPlayer = p.Value.DrawTimes;
                     lowestPlayerPlayer = p.Value;
                 }
             }
             var ra = new Random();
-            lowestPlayerPlayer.drawTimes++;
-            string word = _wordList[ra.Next(_wordList.Count)];
+            lowestPlayerPlayer.DrawTimes++;
+            string word = _wordList[ra.Next(0, _wordList.Count)];
             Console.WriteLine("Player: {0} is drawing the word {1}", lowestPlayerPlayer.Name, word);
             return new Round(lowestPlayerPlayer, word);
         }
 
-        private static Player LookUpPlayer(long UID)
+        private static Player LookUpPlayer(long uid)
         {
-            return Players[UID];
+            return Players[uid];
         }
 
         private static int LoadWords(string listname, out List<string> list, out long timeToRun)

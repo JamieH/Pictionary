@@ -110,14 +110,14 @@ namespace PictionaryClient
             }
             if (timer.Enabled)
             {
-                Lobby_HostStart.Text = "Start";
+                Lobby_HostStart.Text = @"Start";
                 timer.Stop();
                 _countDown = 10;
                 Network.SendText(PacketTypes.Headers.ChatSend, "The countdown was cancelled!");
             }
             else
             {
-                Lobby_HostStart.Text = "Cancel";
+                Lobby_HostStart.Text = @"Cancel";
                 if (notReady)
                 {
                     timer.Enabled = true;

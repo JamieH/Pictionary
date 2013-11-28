@@ -8,7 +8,7 @@ namespace PictionaryClient.PacketClass
         public long UID;
         private bool _readyStatus;
         public bool IsHost;
-        public int drawTimes = 0;
+        public int DrawTimes;
         public NetConnection Connection;
         public Player(string name)
         {

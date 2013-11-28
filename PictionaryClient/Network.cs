@@ -135,9 +135,9 @@ namespace PictionaryClient
                             case PacketTypes.Headers.WordMessage:
                                 Program.AreWeDrawing = true;
                                 Program.Word = inc.ReadString();
-                                Lobby.game.showWord(Program.Word);
+                                Lobby.game.ShowWord(Program.Word);
                                 Lobby.game.Game_RemindMe.Visible = true;
-                                Lobby.game.updateDisplay();
+                                Lobby.game.UpdateDisplay();
                                 break;
                             case PacketTypes.Headers.NewRound:
                             {
@@ -145,7 +145,8 @@ namespace PictionaryClient
                                 Lobby.game.Game_RemindMe.Visible = false;
                                 Program.Drawer = inc.ReadString();
                                 Lobby.game.roundTimer.Start();
-                                Lobby.game.updateDisplay();
+                                Lobby.game.UpdateDisplay();
+                                Lobby.game.ResetPic();
                             }
                                 break;
                             case PacketTypes.Headers.DrawLine:

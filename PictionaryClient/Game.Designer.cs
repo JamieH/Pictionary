@@ -1,4 +1,6 @@
-﻿namespace PictionaryClient
+﻿using System.Windows.Forms;
+
+namespace PictionaryClient
 {
     partial class Game
     {
@@ -450,5 +452,6 @@
         private System.Windows.Forms.PictureBox Game_DrawSize;
         public System.Windows.Forms.Button Game_RemindMe;
         public System.Windows.Forms.RichTextBox Game_Chatbox;
+        public Timer roundTimer = new Timer {Interval = 1000, Enabled = true};
     }
 }
